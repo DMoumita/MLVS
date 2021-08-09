@@ -30,9 +30,10 @@ How to run
 
 To check : 
 --------
-   http://127.0.0.1:5000/verify
+   http://127.0.0.1:5000/mlvs
        
-  
+  ![image](https://user-images.githubusercontent.com/41421406/128775429-84342b71-1d32-42fa-a1ba-a333cd05643a.png)
+
    
 
 # MLVS

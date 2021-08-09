@@ -147,26 +147,16 @@
 		<main id="center" class="column">
 			<article>
 			
-				<h1 id="topPage">Why MLVS?</h1>
-				<p> No need to worry about your system configuration, operating system, dependencies installation etc</p>
-				<p> Give your network and property file - MLVS will verify for you</p>
-				<h1>How?</h1>
-				<p> Click on "Verify NN"</p>
-				<p> Give a <a href="#nm">network model</a> and a <a href=#pf>property file</a> and a <a href=#tm>timeout value</a> </p>
-				<p> Click on any tool to verify your network model for the given property with the given timeout value</p>
-				<h1>Output after a run</h1>
-				<p> Safe : Network is safe for the given property</p>
-				<p> Unsafe : Network is not safe for the given property</p>
-				<p> In this case, MLVS also displays falsifying inputs for which network is unsafe for the given property</p>
-				<h1 id ="nm">Network model</h1>
-				<p> Please provide your network model in Open Neural Network Exchange(.onnx) file format </p>
-                                <p> <a href="https://onnx.ai/">Please clike here to know more</a>
-				<h1 id=pf>Property file</h1>
-				<p> Please provide your property in .vnnlib fileformat </p>
-                                <p> <a href="http://www.vnnlib.org/">Please clike here to know more</a>
-				<h1 id="tm">Timeout value</h1>
-				<p> If no timeout value is given, 60 sec is taken as default value</p>
-                                <p>Go to the <a href="#topPage">top</a>.</p>
+				<h1>FFN -Fast Falsification of Neural Networks using Property Directed Testing </h1>
+                               <p> 
+                               FFN is a light weight tool that uses a sampling-based falsification method
+                               to rapidly detect the unsafe instances (neural networks together with
+                               properties).
+                               </p>
+
+                               <p> Corrsponding paper is available <a href="https://arxiv.org/pdf/2104.12418v1.pdf">here</a></p> 
+                               <p> Tool is available <a href="https://github.com/DMoumita/FFN">here</a></p> 
+                               <p> The tool is written by Ericsson Research team - Bangalore, India</p>
 			
 			</article>								
 		</main>
@@ -174,22 +164,35 @@
 		<nav id="left" class="column">
 			<h3 style="color: #041A27 ;font-size:20px;">Our Services</h3>
 			<ul >
-                              <li>  <a href="nnverify" style="color: #1B6794 ;font-size:15px;">NN Verification</a> </li>
-                              <li>  <a href="genProp" style="color: #1B6794 ;font-size:15px;">Property file generation </a></li>
+				<li><a href="#" style="color: #1B6794 ;font-size:15px;">NN Verification </a></li>
+				<li><a href="#" style="color: #1B6794 ;font-size:15px;">Property file generation </a></li>
 			</ul>
 			<h3 style="color: #041A27 ;font-size:20px;">Tools </h3>
 			<ul>
-                                <li>  <a href="ffn" style="color: #1B6794 ;font-size:15px;">FFN</a> </li>
-                                <li>  <a href="nnenum" style="color: #1B6794 ;font-size:15px;">nnenum</a> </li>
+				<li><a href="#" style="color: #1B6794 ;font-size:15px;">NNenum</a></li>
+				<li><a href="#" style="color: #1B6794 ;font-size:15px;">FFN</a></li>
 			</ul>
 			<h3> 
 			<ul>
-                                <li>  <a href="verify" style="color: #041A27 ;font-size:20px;">Verify NN</a> </li>
+				<li><a href="#" style="color: #041A27 ;font-size:20px;">Verify NN</a></li>
 			</ul>
                         </h3>
 
 		</nav>
 
+		<div id="right" class="column">
+                        <button onclick="goBack()">Go Back</button>
+                        <a href="mlvs"><button>Home</button></a>
+
+                        <script>
+                             function goBack() {
+                             window.history.back();
+                        }
+                        </script>
+		</div>
+               <div id="bottompage">
+	            <p>myFunction()</p>
+	       </div>
 
 	</div>
 

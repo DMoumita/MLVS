@@ -5,30 +5,44 @@ MLVS verifies a given neural network for a given property specification
 
 Verifies using two tools - FFN and NNENUM
 
+B: Getting Started
+   -------------------------
+1. clone MLVS repository 
 
-How to run
------------
-1. Enter into MLVS directory and create an empty folder to save .onnx file and property file 
+         git clone https://github.com/DMoumita/MLVS.git
 
-       cd MLVS
-       mkdir uploads
+2. Entering into MLVS directory
+      
+         cd MLVS
+3.  create an empty folderto store the given network and property files
 
-2. 
-    a. Run in local server using a docker image
-     
-       sudo docker build . -t mlvs_image
-       sudo docker run -i mlvs_image
+
+         mkdir uploads
+
+4-a. Run using Docker 
+
+    #Intall Docker Engine - please refer https://docs.docker.com/engine/install/ubuntu/
+    #The Dockerfile in FFN folder shows how to install all the dependencies (mostly python and numpy packages) and set up the environment. 
+
+   To build and run mlvs image
     
-      Note: to get a shell use - 
-        
-        sudo docker run -i -t mlvs_image bash
+    sudo docker build . -t mlvs_image 
+
+   To get a shell after building the image:
+  
+    sudo docker run -i -t mlvs_image bash
     
-    b. Run in local server without docker image
+   Run a script without entering in to the the shell:
+   
+    sudo docker run -i  mlvs_image 
+ 
+ 4-b. Run in local server without docker image
     
        pip install Flask
        cd MLVS
        python app.py
-    
+
+   
 
 To check : 
 --------

@@ -1,8 +1,10 @@
-Machine Learning Verification Service(MLVS) - Verifies a neural network for a property 
+MLVS (Machine Learning Verification Service)
+-----------------------------------------------
 
-Currently verifies using two tools - FFN and NNENUM
+MLVS verifies a given neural network for a given property specification
 
-Call any of these tool to verify your network for a property
+Verifies using two tools - FFN and NNENUM
+
 
 How to run
 -----------
@@ -31,8 +33,17 @@ How to run
 To check : 
 --------
    http://127.0.0.1:5000/mlvs
+
+Output :
+---------------
        
   ![image](https://user-images.githubusercontent.com/41421406/128775429-84342b71-1d32-42fa-a1ba-a333cd05643a.png)
+  
+  
+Verify :
+
+![image](https://user-images.githubusercontent.com/41421406/128779496-8aaf48b8-d838-49f6-9c07-98f173d80108.png)
+
 
    
 

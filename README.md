@@ -5,8 +5,8 @@ MLVS verifies a given neural network for a given property specification
 
 Verifies using two tools - FFN and NNENUM
 
-B: Getting Started
-   -------------------------
+ Getting Started
+ -------------------------
 1. clone MLVS repository 
 
          git clone https://github.com/DMoumita/MLVS.git
@@ -44,11 +44,11 @@ B: Getting Started
 
    
 
-To check : 
---------
+To execute on local server: 
+--------------------------
    http://127.0.0.1:5000/mlvs
 
-Output :
+Sample Output :
 ---------------
        
   ![image](https://user-images.githubusercontent.com/41421406/128775429-84342b71-1d32-42fa-a1ba-a333cd05643a.png)
@@ -59,5 +59,6 @@ Verify :
 ![image](https://user-images.githubusercontent.com/41421406/128779496-8aaf48b8-d838-49f6-9c07-98f173d80108.png)
 
 
-   
+To check on AWS EC2 instance: 
+--------------------------
 

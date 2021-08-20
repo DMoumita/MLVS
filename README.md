@@ -61,4 +61,4 @@ Verify :
 
 To check on AWS EC2 instance: 
 --------------------------
-http://52.15.213.159:8080/mlvs
+http://ec2-3-143-5-170.us-east-2.compute.amazonaws.com:8080/verify

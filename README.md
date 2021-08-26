@@ -14,12 +14,8 @@ Verifies using two tools - FFN and NNENUM
 2. Entering into MLVS directory
       
          cd MLVS
-3.  create an empty folderto store the given network and property files
 
-
-         mkdir uploads
-
-4-a. Run using Docker 
+3-a. Run using Docker 
 
     #Intall Docker Engine - please refer https://docs.docker.com/engine/install/ubuntu/
     #The Dockerfile in FFN folder shows how to install all the dependencies (mostly python and numpy packages) and set up the environment. 
@@ -36,7 +32,7 @@ Verifies using two tools - FFN and NNENUM
    
     sudo docker run -i  mlvs_image 
  
- 4-b. Run in local server without docker image
+ 3-b. Run in local server without docker image
     
        pip install Flask
        cd MLVS

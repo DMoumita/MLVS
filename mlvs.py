@@ -9,6 +9,9 @@ app = Flask(__name__)
 app.config['UPLOAD_EXTENSION_ONNX'] = ['.onnx']
 app.config['UPLOAD_EXTENSION_VNNLIB'] = ['.vnnlib']
 
+#create uploads directory to keep iput files
+subprocess.run("mkdir -p uploads", shell=True, check=True)
+
 #All uploaded files are saved into this "upload" folder
 app.config['UPLOAD_PATH'] = 'uploads'
 
@@ -82,11 +85,12 @@ def verify():
       #run FFN
          pythonProg ="FFN.py " + actualmodel + " " + propVnnlib+"  "+timeOut
          output = subprocess.check_output("python3 " +pythonProg, shell=True)
+         output=output.decode('utf8')
       elif request.form['action'] == 'NNENUM':
          #run NNENUM
          pythonProg ="nnenum.py " + actualmodel + " " + propVnnlib+"  "+timeOut
          output = subprocess.check_output("python3 " +pythonProg, shell=True)
-      output=output.decode('utf8')
+         output=output.decode('utf8')
       output = output.replace('Warning: numerical instability (primal simplex, phase II)','')
       output = output.replace('\n\n\n','\n')
       output = printTimeout+output

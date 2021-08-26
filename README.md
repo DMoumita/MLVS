@@ -61,4 +61,5 @@ Verify :
 
 To check on AWS EC2 instance: 
 --------------------------
-http://ec2-3-143-5-170.us-east-2.compute.amazonaws.com/mlvs
+http://ec2-3-144-46-126.us-east-2.compute.amazonaws.com/mlvs
+

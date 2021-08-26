@@ -47,12 +47,12 @@ To execute on local server:
 Sample Output :
 ---------------
        
-  ![image](https://user-images.githubusercontent.com/41421406/128775429-84342b71-1d32-42fa-a1ba-a333cd05643a.png)
+![image](https://user-images.githubusercontent.com/41421406/130942949-b1827f71-f25a-4921-9e54-9a5d6efcca9a.png)
   
   
 Verify :
+![image](https://user-images.githubusercontent.com/41421406/130942817-64e889bf-31db-4602-97ba-0483469d5971.png)
 
-![image](https://user-images.githubusercontent.com/41421406/128779496-8aaf48b8-d838-49f6-9c07-98f173d80108.png)
 
 
 To check on AWS EC2 instance: 

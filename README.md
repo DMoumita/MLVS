@@ -36,7 +36,7 @@ Verifies using two tools - FFN and NNENUM
     
        pip install Flask
        cd MLVS
-       python app.py
+       python mlvs.py
 
    
 

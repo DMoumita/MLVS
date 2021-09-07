@@ -57,5 +57,4 @@ Verify :
 
 To check on AWS EC2 instance: 
 --------------------------
-http://ec2-3-144-46-126.us-east-2.compute.amazonaws.com/mlvs
-
+http://ec2-3-128-200-136.us-east-2.compute.amazonaws.com:8080/mlvs

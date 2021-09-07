@@ -239,20 +239,21 @@ def process_result(shared):
             #print("")
 
             if shared.had_timeout.value == 1:
-                print(f"Status: Timeout")
+                print(f"Result: Timeout")
             elif shared.result.found_confirmed_counterexample.value:
-                print(f"\nStatus: network is UNSAFE with confirmed counterexample -")
+                print(f"Result: Property violated")
+                print(f"Counter example found - ")
                 if len(shared.result.cinput) <= 10:
-                    print(f"Adversarial Input: {list(shared.result.cinput)}")
+                    print(f"Input: {list(shared.result.cinput)}")
 
                 if len(shared.result.coutput) <= 10:
-                    print(f"Evaluated Output: {list(shared.result.coutput)}")
+                    print(f"Output: {list(shared.result.coutput)}")
             elif shared.result.found_counterexample.value:
                 print(f"\nStatus: network seems UNSAFE, but not confirmed counterexamples (possible numerial " + \
                       "precision issues)")
             elif shared.spec is not None:
-                print(f"\nStatus: network is SAFE") # safe subject to numerical accuracy issues
-            print(f"\nTime taken: {to_time_str(shared.result.total_secs)}{suffix}")
+                print(f"\nResult: Property holds ") # safe subject to numerical accuracy issues
+            #print(f"\nTime taken: {to_time_str(shared.result.total_secs)}{suffix}")
 
         if shared.result.polys:
             print(f"Result contains {len(shared.result.polys)} sets of polygons")

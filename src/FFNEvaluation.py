@@ -40,9 +40,10 @@ def propCheck(inputs,specs,outputs):
           break
 
    if res == 'violated':
-      print("\nStatus : network is UNSAFE with confirmed counterexample - ")
-      print(f"\nAdversarial Input: {inputs}")
-      print(f"Evaluated output: {outputs}")
+      print("Result: Property violated ")
+      print(f"Counter example found -")
+      print(f"Input: {inputs}")
+      print(f"Output: {outputs}")
       return 1
 
    return 0

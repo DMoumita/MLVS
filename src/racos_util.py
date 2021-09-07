@@ -176,7 +176,7 @@ def propCheck(inputs,specs,outputs):
           break
 
    if res == 'violated':
-       print("\nResult: Property violated")
+      print("\nResult: Property violated")
       print("\nCounter example found - ")
       print("\nInput: ",inputs)
       print("\nOutputs: ",outputs)

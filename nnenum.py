@@ -83,8 +83,6 @@ def set_image_settings():
 def main():
     'main entry point'
 
-    print(f"\nNNENUM Evaluation Result :")
-    print(f"\n==============================\n")
     if len(sys.argv) < 3:
         print('usage: "python3 nnenum.py <onnx_file> <vnnlib_file> [timeout=None] [outfile=None] [processes=<auto>]"')
         sys.exit(1)
@@ -105,7 +103,11 @@ def main():
         processes = int(sys.argv[5])
         Settings.NUM_PROCESSES = processes
 
-    print(f"Testing network model {onnx_filename} for property file {vnnlib_filename}")
+    onnxFileName1 = onnx_filename.split('/')[-1]
+    vnnFileName1 = vnnlib_filename.split('/')[-1]
+
+    print(f"\nNetwork model: {onnxFileName1}")
+    print(f"Property file: {vnnFileName1}")
     #
     spec_list, input_dtype = make_spec(vnnlib_filename, onnx_filename)
 
@@ -147,9 +149,9 @@ def main():
     # rename for VNNCOMP21:
         
     if result_str == "safe":
-        result_str = "holds"
+        result_str = "Property holds"
     elif "unsafe" in result_str:
-        result_str = "violated"
+        result_str = "Property violated"
 
     if outfile is not None:
         with open(outfile, 'w') as f:

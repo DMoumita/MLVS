@@ -5,7 +5,7 @@ import signal
 
 from src.FFNEvaluation import sampleEval
 
-printStatus= "\nStatus : "
+printStatus= "Result: "
 printTimeout= "\n\nTime taken : "
 
 # Register an handler for the timeout
@@ -19,9 +19,8 @@ def runSingleInstance(onnxFile,vnnlibFile):
    onnxFileName = onnxFile.split('/')[-1]
    vnnFileName = vnnlibFile.split('/')[-1]
 
-   print(f"\nFFN Evaluation Result :")
-   print(f"\n==============================\n")
-   print(f"\nTesting network model {onnxFileName} for property file {vnnFileName}")
+   print(f"\nNN model: {onnxFileName}")
+   print(f"Property file: {vnnFileName}")
 
    'Calling sampleEval until any adversarial found or timout ocuurs'
    while(1):
@@ -31,10 +30,10 @@ def runSingleInstance(onnxFile,vnnlibFile):
        #print("Time elapsed: ",timeElapsed)
 
        if (status == "violated"):
-          resultStr = "\n" + printTimeout+str(round(timeElapsed,4))+" second"
+          resultStr = " "#\n" + printTimeout+str(round(timeElapsed,4))+" second"
           return resultStr
     
-   resultStr = printStatus +"Timeout"+printTimeout+str(round(timeElapsed,4)) + " second"
+   resultStr = printStatus +"Timeout"#+printTimeout+str(round(timeElapsed,4)) + " second"
    return resultStr
 
 
@@ -56,7 +55,7 @@ if __name__ == '__main__':
        retStatus = runSingleInstance(onnxFile,vnnlibFile)
        print(retStatus)
    except Exception as exc:
-       printStr = printStatus+"timeout"+printTimeout + str(timeout) + " second\n" 
+       printStr = printStatus+"timeout"#+printTimeout + str(timeout) + " second\n" 
        print(printStr)
        print(exc)
 

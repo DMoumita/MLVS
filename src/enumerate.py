@@ -225,10 +225,8 @@ def process_result(shared):
         else:
             stars = shared.finished_stars.value
             approx = shared.finished_approx_stars.value
-            #print(f"\nTotal Stars: {stars} ({stars - approx} exact, {approx} approx)")
             
             suffix = "" if shared.result.total_secs < 60 else f" ({round(shared.result.total_secs, 2)} sec)"
-            #print(f"Runtime: {to_time_str(shared.result.total_secs)}{suffix}")
             #print(f"Completed work frac: {shared.finished_work_frac.value}")
             #print(f"Num Stars Copied Between Processes: {shared.num_offloaded.value}")
             #print(f"Num Lps During Enumeration: {shared.num_lps_enum.value}")
@@ -239,9 +237,9 @@ def process_result(shared):
             #print("")
 
             if shared.had_timeout.value == 1:
-                print(f"Result: Timeout")
+                print("Result: Timeout")
             elif shared.result.found_confirmed_counterexample.value:
-                print(f"Result: Property violated")
+                print("Result: Property violated")
                 print(f"Counter example found - ")
                 if len(shared.result.cinput) <= 10:
                     print(f"Input: {list(shared.result.cinput)}")
@@ -252,7 +250,7 @@ def process_result(shared):
                 print(f"\nStatus: network seems UNSAFE, but not confirmed counterexamples (possible numerial " + \
                       "precision issues)")
             elif shared.spec is not None:
-                print(f"\nResult: Property holds ") # safe subject to numerical accuracy issues
+                print("Result: Property holds ") # safe subject to numerical accuracy issues
             #print(f"\nTime taken: {to_time_str(shared.result.total_secs)}{suffix}")
 
         if shared.result.polys:

@@ -29,7 +29,7 @@ def runSingleInstance(onnxFile,vnnlibFile):
       endTime = time.time()
       timeElapsed = endTime - startTime
       if (status == "violated"):
-          resultStr = "violated"
+          resultStr = ""
           return resultStr
 
    resultStr = printStatus +"Timeout"

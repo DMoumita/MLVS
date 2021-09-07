@@ -105,12 +105,14 @@ def verify():
          output = subprocess.check_output("python3 " +pythonProg, shell=True)
          printToolName = "FFN results -\n"
          output=output.decode('utf8')
+         output = output.replace('\n\n','\n')
       elif request.form['action'] == 'NNENUM':
          #run NNENUM
          pythonProg ="nnenum.py " + actualmodel + " " + propVnnlib+"  "+timeOut
          output = subprocess.check_output("python3 " +pythonProg, shell=True)
          printToolName = "NNenum results -\n"
          output=output.decode('utf8')
+         output = output.replace('\n\n','\n')
       output = output.replace('Warning: numerical instability (primal simplex, phase II)','')
       output = output.replace('\n\n\n','\n')
       output = printToolName+printTimeout+output

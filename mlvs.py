@@ -8,8 +8,6 @@ app = Flask(__name__)
 
 app.config['UPLOAD_EXTENSION_ONNX'] = ['.onnx']
 app.config['UPLOAD_EXTENSION_VNNLIB'] = ['.vnnlib']
-
-#create uploads directory to keep iput files
 subprocess.run("mkdir -p uploads", shell=True, check=True)
 
 #All uploaded files are saved into this "upload" folder
@@ -20,17 +18,19 @@ app.config['UPLOAD_PATH'] = 'uploads'
 def index():
     return render_template('index.html')
 
-@app.route('/nnverify')
+@app.route('/genTest')
 def nn():
-    return render_template('nnVerification.html')
+    return render_template('genTest.html')
 
 
 @app.route('/genProp')
 def genProp():
     return render_template('genProp.html')
+
 @app.route('/ffn')
 def ffn():
     return render_template('ffn.html')
+
 @app.route('/nnenum')
 def nnenum():
     return render_template('nnenum.html')
@@ -45,6 +45,9 @@ def verify():
       onnxFilename = secure_filename(uploadedOnnxFile.filename)
 
       if onnxFilename != '':
+           #delete uploaded .onnx files from "uploads" folder
+           removeFiles = "rm " + app.config['UPLOAD_PATH'] + "/ACAS*"
+           subprocess.run(removeFiles, shell=True)
            file_ext = os.path.splitext(onnxFilename)[1]
 
            #check for a .onnx file
@@ -59,6 +62,9 @@ def verify():
       vnnlibFilename = secure_filename(uploadedVnnlibFile.filename)
 
       if vnnlibFilename != '':
+         #delete uploaded .onnx files from "uploads" folder
+         removeFiles = "rm " + app.config['UPLOAD_PATH'] + "/prop*"
+         subprocess.run(removeFiles, shell=True)
          file_ext = os.path.splitext(vnnlibFilename)[1]
 
          #check for a .onnx file
@@ -74,38 +80,48 @@ def verify():
       #set default value for timeOut if not metioned
       printTimeout=""
       if timeOut == '':
-         timeOut = "10"
-         printTimeout = "\nSet Default Timeout = 10 sec"
+         timeOut = "20"
+         printTimeout = "\nDefault Timeout = 20 sec"
 
       #create absolute path for .onnx and .vnnlib file
-      actualmodel = app.config['UPLOAD_PATH']+ "/" + onnxFilename
-      propVnnlib = app.config['UPLOAD_PATH'] + "/" + vnnlibFilename
+      output1=""
+      if (onnxFilename == ''):
+          onnxFilename = subprocess.check_output("ls " + app.config['UPLOAD_PATH']+"/ACAS*",shell=True)
+          onnxFilename=onnxFilename.decode('utf8')
+          actualmodel = onnxFilename.rstrip("\n")
+      else :
+          actualmodel = app.config['UPLOAD_PATH']+ "/" + onnxFilename
+      if (vnnlibFilename == ''):
+          vnnlibFilename = subprocess.check_output("ls " + app.config['UPLOAD_PATH']+"/prop*",shell=True)
+          vnnlibFilename=vnnlibFilename.decode('utf8')
+          propVnnlib = vnnlibFilename.rstrip("\n")
+      else:
+          propVnnlib = app.config['UPLOAD_PATH'] + "/" + vnnlibFilename
 
+      output=""
       if request.form['action'] == 'FFN':
       #run FFN
-         pythonProg ="FFN.py " + actualmodel + " " + propVnnlib+"  "+timeOut
+         pythonProg ="RACOS_FFN.py " + actualmodel + " " + propVnnlib+"  "+timeOut
          output = subprocess.check_output("python3 " +pythonProg, shell=True)
+         printToolName = "FFN results -\n"
          output=output.decode('utf8')
       elif request.form['action'] == 'NNENUM':
          #run NNENUM
          pythonProg ="nnenum.py " + actualmodel + " " + propVnnlib+"  "+timeOut
          output = subprocess.check_output("python3 " +pythonProg, shell=True)
+         printToolName = "NNenum results -\n"
          output=output.decode('utf8')
       output = output.replace('Warning: numerical instability (primal simplex, phase II)','')
       output = output.replace('\n\n\n','\n')
-      output = printTimeout+output
+      output = printToolName+printTimeout+output
 
       #delete all upload files from "uploads" folder
       #removeFiles = "rm " + app.config['UPLOAD_PATH'] + "/*"
       #subprocess.run(removeFiles, shell=True)
 
-      return render_template('runTool.html',output=output)
+      return render_template('runTool1.html',output=output)
    else:
       return render_template('runTool.html')
-
-@app.route("/nnVerify",methods=['POST'])
-def nnVerify():
-   return render_template('index.html',output=output)
 
 if __name__ == '__main__':
     # run app in debug mode on port 5000

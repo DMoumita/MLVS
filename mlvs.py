@@ -85,6 +85,7 @@ def verify():
 
       #create absolute path for .onnx and .vnnlib file
       output1=""
+      printToolName=""
       if (onnxFilename == ''):
           onnxFilename = subprocess.check_output("ls " + app.config['UPLOAD_PATH']+"/ACAS*",shell=True)
           onnxFilename=onnxFilename.decode('utf8')
@@ -128,4 +129,3 @@ def verify():
 if __name__ == '__main__':
     # run app in debug mode on port 5000
     app.run(debug=True, port=5000)
-

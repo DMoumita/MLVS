@@ -32,9 +32,10 @@ Verifies using two tools - FFN and NNENUM
    
     sudo docker run -i  mlvs_image 
  
- 3-b. Run in local server without docker image
+ 3-b. [Tested for Ubuntu 16.04 and 18.04]
+      Run in local server without docker image
     
-       pip install Flask
+       pip install -r requirements.txt
        cd MLVS
        python mlvs.py
 

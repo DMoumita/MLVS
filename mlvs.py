@@ -98,7 +98,8 @@ def verify():
       else:
           propVnnlib = app.config['UPLOAD_PATH'] + "/" + vnnlibFilename
 
-      output=""
+      output = ""
+      printToolName = ""
       if request.form['action'] == 'FFN':
       #run FFN
          pythonProg ="RACOS_FFN.py " + actualmodel + " " + propVnnlib+"  "+timeOut

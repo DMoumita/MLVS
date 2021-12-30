@@ -30,7 +30,7 @@ Verifies using two tools - FFN and NNENUM
   
     sudo docker run -i -t mlvs_image bash
     
-   Run a script without entering in to the the shell:    
+   Run a script without entering in to the the shell:     
    
     sudo docker run -i  mlvs_image 
      

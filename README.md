@@ -15,7 +15,6 @@ Verifies using two tools - FFN and NNENUM
       
          cd MLVS
          
-3.
 3-a. Run using Docker 
 
     #Intall Docker Engine - please refer https://docs.docker.com/engine/install/ubuntu/

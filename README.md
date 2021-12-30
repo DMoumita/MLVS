@@ -5,7 +5,8 @@ MLVS verifies a given neural network for a given property specification
 
 Verifies using two tools - FFN and NNENUM
 
- Getting Started
+ Getting Started 
+ 
  
  -------------------------
 1. clone MLVS repository     

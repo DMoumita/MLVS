@@ -31,6 +31,9 @@ Verifies using two tools - FFN and NNENUM
    Run a script without entering in to the the shell:
    
     sudo docker run -i  mlvs_image 
+    
+    
+    
  
  3-b. [Tested for Ubuntu 16.04 and 18.04]
       Run in local server without docker image

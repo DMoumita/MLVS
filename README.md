@@ -15,7 +15,6 @@ Verifies using two tools - FFN and NNENUM
  
 2. Entering into MLVS directory
       
-      
          cd MLVS 
                                  
 3-a. Run using Docker 

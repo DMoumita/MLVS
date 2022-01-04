@@ -1,8 +1,12 @@
 steps:
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', '${_IMAGE}', '.']
-
-images: ['${_IMAGE}']
-
-substitutions:
-  _IMAGE: 'gcr.io/${PROJECT_ID}/${REPO_NAME}:${TAG_NAME:-${SHORT_SHA}}'
+- name: gcr.io/cloud-builders/npm
+  args:
+  - install
+- name: gcr.io/cloud-builders/npm
+  args:
+  - run
+  - build:ssr # Presumably this is where dist/browser is generated?
+- name: firebase
+  args:
+  - deploy # dist/browser
+NOTE Every Cloud Build step has an i

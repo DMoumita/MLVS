@@ -4,7 +4,7 @@ steps:
   #id: Docker Version
   #args: ["version"]
   args: ["gcloud", "compute", "instances", "list"]
-
+  args: ["gcloud", "compute", "instances", "start", "instance-2", "--zone=europe-west2-c"]
 - name: 'alpine'
   id:  Hello Cloud Build
   #args: ["echo", "Hello Cloud Build"]

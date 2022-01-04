@@ -4,5 +4,5 @@ steps:
   args: ["version"]
 - name: 'alpine'
   id:  Hello Cloud Build
-  args: ["echo", "Hello Cloud Build"]
-  #args: ["gcloud compute instances list"]
+  #args: ["echo", "Hello Cloud Build"]
+  args: ["gcloud", "compute", "instances", "list"]

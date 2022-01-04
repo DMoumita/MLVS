@@ -6,10 +6,10 @@ steps:
   args: ["gcloud", "compute", "instances", "list"]
   args: ["echo", "Starting VM instance"]
   args: ["gcloud", "compute", "instances", "start", "instance-2", "--zone=europe-west2-c"]
-  args: ["echo", Let's sllep for 30 second"]
+  args: ["echo", Let's sleep for 30 second"]
   args: ["sleep", "sleep", "30"]
   args: ["echo", "Stopping VM instance"]
-  args: ["gcloud", "compute", "instances", "stop", "instance-2", "--zone=europe-west2-c"]
+  args: ["gcloud", "compute", "instances", "start", "instance-2", "--zone=europe-west2-c"]
 - name: 'alpine'
   id:  Hello Cloud Build
   #args: ["echo", "Hello Cloud Build"]

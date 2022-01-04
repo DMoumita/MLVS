@@ -7,8 +7,7 @@ Verifies using two tools - FFN and NNENUM
 
  Getting Started 
      
- 
- -------------------------      
+  -------------------------      
 1. clone MLVS repository     
  
          git clone https://github.com/DMoumita/MLVS.git

@@ -5,4 +5,4 @@ steps:
 - name: 'alpine'
   id:  Hello Cloud Build
   #args: ["echo", "Hello Cloud Build"]
-  args: ["gcloud compute instances start instance-2 --zone=europe-west2-c"]
+  args: ["gcloud compute instances list"]

@@ -1,11 +1,7 @@
 steps:
-- name: gcr.io/cloud-builders/npm
-  args:
-  - install
-- name: gcr.io/cloud-builders/npm
-  args:
-  - run
-  - build:ssr # Presumably this is where dist/browser is generated?
-- name: firebase
-  args:
-  - deploy # dist/browser
+- name: 'gcr.io/cloud-builders/docker'
+  id: Docker Version
+  args: ["version"]
+- name: 'alpine'
+  id:  Hello Cloud Build
+  args: ["echo", "Hello Cloud Build"]

@@ -9,4 +9,3 @@ steps:
 - name: firebase
   args:
   - deploy # dist/browser
-NOTE Every Cloud Build step has an i

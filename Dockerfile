@@ -4,7 +4,7 @@
 # docker build . -t mlvs_image
 #
 # To run container image:
-# docker run -i mlvs_image bash
+# docker run -i mlvs_image bash 
 
 FROM python:3.6
 

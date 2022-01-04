@@ -1,9 +1,11 @@
 steps:
 #- name: 'gcr.io/cloud-builders/docker'
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  id: Docker Version
-  args: ["version"]
+  #id: Docker Version
+  #args: ["version"]
+  args: ["gcloud", "compute", "instances", "list"]
+
 - name: 'alpine'
   id:  Hello Cloud Build
   #args: ["echo", "Hello Cloud Build"]
-  args: ["gcloud", "compute", "instances", "list"]
+  

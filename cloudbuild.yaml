@@ -3,7 +3,7 @@ steps:
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   args: ["gcloud", "compute", "instances", "start", "instance-2", "--zone=europe-west2-c"]
 - name: 'alpine'
-  args: ["sleep", "sleep", "30"]
+  args: ["sleep", "30"]
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   args: ["gcloud", "compute", "instances", "stop", "instance-2", "--zone=europe-west2-c"]
 - name: 'alpine'

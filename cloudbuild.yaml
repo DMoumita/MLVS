@@ -1,16 +1,12 @@
 steps:
 #- name: 'gcr.io/cloud-builders/docker'
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  #id: Docker Version
-  #args: ["version"]
-  args: ["gcloud", "compute", "instances", "list"]
-  args: ["echo", "Starting VM instance"]
-  #args: ["gcloud", "compute", "instances", "start", "instance-2", "--zone=europe-west2-c"]
-  args: ["echo", Let's sleep for 30 second"]
-  args: ["sleep", "sleep", "30"]
-  args: ["echo", "Stopping VM instance"]
   args: ["gcloud", "compute", "instances", "start", "instance-2", "--zone=europe-west2-c"]
+- name: 'alpine'
+  args: ["sleep", "sleep", "30"]
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  args: ["gcloud", "compute", "instances", "stop", "instance-2", "--zone=europe-west2-c"]
 - name: 'alpine'
   id:  Hello Cloud Build
   args: ["echo", "Hello Cloud Build"]
-  args: ["echo", "Hello Cloud Build 2"]
+ 

@@ -1,11 +1,14 @@
 import numpy as np
 import re
 from itertools import chain
+import math
 
 import onnx
 import onnxruntime as ort
 
 import numpy as np
+
+from src.custom_property import prop_y10
 
 def predictWithOnnxruntime(modelDef, *inputs):
     'run an onnx model'
@@ -163,17 +166,41 @@ def checkAndSegregateSamplesForMinimization(posSample,negSample, smple,oldPos,ta
             posSample.remove(posSample[0])
             posSample.append(oldPos[0])
 
-
+def validateProposal(inputs,outputs):
+    res = "unknown"
 
 def propCheck(inputs,specs,outputs):
    res = "unknown"
-   for propMat, propRhs in specs:
-       vec = propMat.dot(outputs)
-       sat = np.all(vec <= propRhs)
 
-       if sat:
-          res = 'violated'
-          break
+   #test for the X1 < X2 type of properties
+   if True:
+       sat = False
+       x3 = inputs[3] * 100 + 50
+       x4 = inputs[4] * 100 + 50
+       x5 = inputs[5] * 100 + 50
+       x3Up = math.sqrt(x3 * (100 - x3))
+       x4Up = math.sqrt(x4 * (100 - x4))
+       x5Up = math.sqrt(x5 * (100 - x5))
+
+       x6 = inputs[6] * 50 + 25
+       x7 = inputs[7] * 50 + 25
+       x8 = inputs[8] * 50 + 25
+
+       if (x6 > x3Up) or (x7 > x4Up) or (x8 > x5Up):
+           return 0
+
+       y10 = outputs[10]
+       if (y10 < -0.3):
+            print("constraints-----\n", x6, x3Up, x7, x4Up, x8, x5Up, "---------")
+            res = 'violated'
+
+   for propMat, propRhs in specs:
+        vec = propMat.dot(outputs)
+        sat = np.all(vec <= propRhs)
+   #
+   #     if sat:
+   #        res = 'violated'
+   #        break
 
    if res == 'violated':
       print("Result: Property violated")

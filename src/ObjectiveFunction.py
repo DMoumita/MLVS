@@ -5,13 +5,15 @@ import onnxruntime as rt
 from src.racos_util import predictWithOnnxruntime, propCheck
 import numpy as np
 
+from src.custom_property import prop_y10
+
 #Sphere function for continue optimization
 def Sphere(x):
     value = sum([(i-0.2)*(i-0.2) for i in x])
     return value
 
 # FFN evaluation for continue optimization
-def FFN(onnxModel,inVals,inpDtype, inpShape, inpSpecs, target, objType):
+def FFN(onnxModel,inVals,inpDtype, inpShape, inpSpecs, target, objType, valFn):
    flattenOrder='C'
    inputs = np.array(inVals, dtype=inpDtype)
    inputs = inputs.reshape(inpShape, order=flattenOrder) # check if reshape order is correct
@@ -23,7 +25,9 @@ def FFN(onnxModel,inVals,inpDtype, inpShape, inpSpecs, target, objType):
    # objType = 0 -> maximization
    # objType = 1 -> minimization
 
-   retVal=propCheck(inVals,inpSpecs,flatOut)
+   #retVal=propCheck(inVals,inpSpecs,flatOut)
+   #retVal = prop_y10(inVals, flatOut)
+   retVal = valFn(inVals, flatOut)
    if (objType == 0):
       flatOut[target] = -flatOut[target]
 

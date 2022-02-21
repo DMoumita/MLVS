@@ -5,6 +5,7 @@ import argparse
 import signal
 import time
 from src.RacosFFNEvaluation import runRacos
+from src.custom_property import *
 
 printStatus= "Result: "
 printTimeout= "\n\nTime taken : "
@@ -14,7 +15,7 @@ def handler(signum, frame):
     raise Exception("")#kill running :: Timeout occurs")
 
 
-def runSingleInstance(onnxFile,vnnlibFile):
+def runSingleInstance(onnxFile,vnnlibFile, validateFn):
    #Variable Initialization
    startTime = time.time()
 
@@ -25,7 +26,7 @@ def runSingleInstance(onnxFile,vnnlibFile):
    print(f"Property file: {vnnFileName}")
 
    while(1):
-      status = runRacos(onnxFile,vnnlibFile)
+      status = runRacos(onnxFile,vnnlibFile, validateFn)
       endTime = time.time()
       timeElapsed = endTime - startTime
       if (status == "violated"):
@@ -39,9 +40,10 @@ def runSingleInstance(onnxFile,vnnlibFile):
 #Main function
 if __name__ == '__main__':
 
-   onnxFile= sys.argv[1]
-   vnnlibFile=sys.argv[2]
-   timeout=sys.argv[3]
+   onnxFile   = sys.argv[1]
+   vnnlibFile = sys.argv[2]
+   validateFn = globals()[sys.argv[3]]
+   timeout    = sys.argv[4]
    # Register the signal function handler
    signal.signal(signal.SIGALRM, handler)
 
@@ -51,7 +53,7 @@ if __name__ == '__main__':
    '"runSingleInstance" will continue until any adversarial found or timeout occurs'
    'When timeout occurs codes written within exception will be executed'
    try:
-       retStatus = runSingleInstance(onnxFile,vnnlibFile)
+       retStatus = runSingleInstance(onnxFile,vnnlibFile, validateFn)
        print(retStatus)
    except Exception as exc:
        printStr = printStatus+"timeout"

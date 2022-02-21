@@ -33,7 +33,7 @@ def ResultAnalysis(res, top):
     #print (mean_r, '#', std_r) 
     return
 
-def runRacos(onnxFilename, vnnlibFilename):
+def runRacos(onnxFilename, vnnlibFilename, validateFn):
     startTime = time.time()
     repeat = 200
     results = []
@@ -83,7 +83,7 @@ def runRacos(onnxFilename, vnnlibFilename):
           # racos.OnlineTurnOn()
           # racos.ContinueOpt(Ackley, SampleSize, Budget, PositiveNum, RandProbability, UncertainBits)
 
-          ret = racos.ContinueOpt(FFN, SampleSize, MaxIteration, PositiveNum, RandProbability, UncertainBits) #FFN
+          ret = racos.ContinueOpt(FFN, SampleSize, MaxIteration, PositiveNum, RandProbability, UncertainBits, validateFn) #FFN
         
           if (ret == 1):
              endTime = time.time()

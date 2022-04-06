@@ -1,6 +1,7 @@
 from src.Components import Instance
 from src.Components import Dimension
 from src.Tools import RandomOperator
+import src.ObjectiveFunction
 
 class RacosOptimization:
 
@@ -152,7 +153,7 @@ class RacosOptimization:
         return False
 
     # Initialize Pop, PosPop and Optimal
-    def Initialize(self, func):
+    def Initialize(self, func, validateFn):
         temp = []
 
         # sample in original region under uniform distribution
@@ -165,7 +166,7 @@ class RacosOptimization:
                 if self.InstanceInList(ins, temp, i) is False:
                     break
             # FFN starts
-            adv, retValFunc = func(self.__netModel,ins.getFeatures(), self.__inpDtype, self.__inpShape, self.__inpSpecs, self.__target, self.__objType) #FFN
+            adv, retValFunc = func(self.__netModel,ins.getFeatures(), self.__inpDtype, self.__inpShape, self.__inpSpecs, self.__target, self.__objType, validateFn) #FFN
             if (adv == 1):
                return 1
             ins.setFitness(retValFunc)
@@ -313,7 +314,7 @@ class RacosOptimization:
         rp:   the probability of sampling in model randomly
         ub:   uncertain bits
     '''
-    def ContinueOpt(self, func, ss, mt, pn, rp, ub):
+    def ContinueOpt(self, func, ss, mt, pn, rp, ub, val):
 
         self.Clear()
         self.setParameters(ss, mt, pn, rp, ub)
@@ -321,7 +322,7 @@ class RacosOptimization:
         self.printRacos()
         
         #FFN starts
-        ret = self.Initialize(func)
+        ret = self.Initialize(func, val)
         if(ret == 1) :
            return 1
         #FFN ends
@@ -342,7 +343,7 @@ class RacosOptimization:
                         ins = self.PosRandomInstance(self.__dimension, self.__region, self.__label, self.__PosPop[ChosenPos])
                         if((self.InstanceInList(ins, self.__PosPop, self.__PositiveNum) is False) and (self.InstanceInList(ins, self.__NextPop, sam) is False)):
                             # FFN starts
-                            adv, retValFunc = func(self.__netModel,ins.getFeatures(), self.__inpDtype, self.__inpShape, self.__inpSpecs, self.__target, self.__objType) #FFN
+                            adv, retValFunc = func(self.__netModel,ins.getFeatures(), self.__inpDtype, self.__inpShape, self.__inpSpecs, self.__target, self.__objType, val) #FFN
                             if (adv == 1):
                                return 1
                             ins.setFitness(retValFunc)
@@ -373,7 +374,7 @@ class RacosOptimization:
                     if ((self.InstanceInList(ins, self.__PosPop, self.__PositiveNum) is False) and (
                         self.InstanceInList(ins, self.__Pop, self.__SampleSize) is False)):
                         # FFN starts
-                        adv, retValFunc = func(self.__netModel,ins.getFeatures(), self.__inpDtype, self.__inpShape, self.__inpSpecs, self.__target, self.__objType) #FFN
+                        adv, retValFunc = func(self.__netModel,ins.getFeatures(), self.__inpDtype, self.__inpShape, self.__inpSpecs, self.__target, self.__objType, val) #FFN
                         if (adv == 1):
                             return 1
                         ins.setFitness(retValFunc)
@@ -389,7 +390,7 @@ class RacosOptimization:
     # Distinguish function for discrete optimization
     def DiscreteDistinguish(self, ins, ChosenDim):
 
-        if len(ChosenDim) is 0:
+        if len(ChosenDim) == 0:
             return 0
 
         for i in range(self.__SampleSize):
@@ -661,4 +662,4 @@ class RacosOptimization:
                 self.OnlineUpdate(ins)
                 self.UpdateOptimal()
 
-        return 0
+        return

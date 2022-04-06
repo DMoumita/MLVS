@@ -1,13 +1,10 @@
 from src.Racos import RacosOptimization
 from src.Components import Dimension
-from src.ObjectiveFunction import Sphere
-from src.ObjectiveFunction import Ackley
-from src.ObjectiveFunction import FFN
-from src.ObjectiveFunction import SetCover
-from src.ObjectiveFunction import MixedFunction
 from src.racos_vnnlib import readVnnlib, getIoNodes
 from src.racos_util import removeUnusedInitializers, findObjectiveFuncionType
+from src.ObjectiveFunction import *
 
+import src.custom_property 
 import numpy as np
 import onnx
 import time
@@ -22,6 +19,12 @@ PositiveNum = 1             # the set size of PosPop
 RandProbability = 0.99      # the probability of sample in model
 UncertainBits = 1           # the dimension size that is sampled randomly
 
+#dictionary of custom function names defining the input function names
+#funcdict = {
+#  'prop_default': prop_default,
+#  'prop_y10' : prop_y10,
+#  'prop_y10_0' : prop_y10_0
+#}
 
 def ResultAnalysis(res, top):
     res.sort()
@@ -33,7 +36,7 @@ def ResultAnalysis(res, top):
     #print (mean_r, '#', std_r) 
     return
 
-def runRacos(onnxFilename, vnnlibFilename):
+def runRacos(onnxFilename, vnnlibFilename, validateFn):
     startTime = time.time()
     repeat = 200
     results = []
@@ -76,105 +79,19 @@ def runRacos(onnxFilename, vnnlibFilename):
           dim.setRegion(i, inRanges[i], True)
 
        for i in range(repeat):
-          #print (i, ':--------------------------------------------------------------')
           racos = RacosOptimization(dim, onnxModel,inpDtype, inpShape, specList, targetAndType[0], targetAndType[1]) #FFN 
 
           # call online version RACOS
           # racos.OnlineTurnOn()
           # racos.ContinueOpt(Ackley, SampleSize, Budget, PositiveNum, RandProbability, UncertainBits)
+          ret = racos.ContinueOpt(nneval, SampleSize, MaxIteration, PositiveNum, RandProbability, UncertainBits, validateFn) #FFN
 
-          ret = racos.ContinueOpt(FFN, SampleSize, MaxIteration, PositiveNum, RandProbability, UncertainBits) #FFN
-        
           if (ret == 1):
-             endTime = time.time()
-             timeElapsed = endTime - startTime
              retStmt = "violated"
              return retStmt
+             
           results.append(racos.getOptimal().getFitness())
 
-    retStmt = "Result: unknown "
     retStmt = "Result: timeout"
     return retStmt
-
-
-# continuous optimization
-#Main function
-if __name__ == '__main__':
-
-  if True:
-  
-    # dimension setting
-    #DimSize = 100
-    #regs.append(0.0)
-    #regs.append(1.0)
-
-    #dim = Dimension()
-    #dim.setDimensionSize(DimSize)
-    #for i in range(DimSize):
-    #    dim.setRegion(i, regs, True)
-
-   #FFN starts
-
-    onnxFilename = sys.argv[1]
-    vnnlibFilename =  sys.argv[2]
-    rStr = runRacos(onnxFilename,vnnlibFilename)
-    print(rStr)
-
-   #FFN ends
-
-  # discrete optimization
-  if False:
-
-    # dimension setting
-    DimSize = 20
-    regs = []
-    regs.append(0)
-    regs.append(1)
-
-    dim = Dimension()
-    dim.setDimensionSize(DimSize)
-    for i in range(DimSize):
-        dim.setRegion(i, regs, False)
-
-    racos = RacosOptimization(dim)
-
-    # call online version RACOS
-    #racos.OnlineTurnOn()
-    #racos.DiscreteOpt(SetCover, SampleSize, Budget, PositiveNum, RandProbability, UncertainBits)
-
-    ret = racos.DiscreteOpt(SetCover, SampleSize, MaxIteration, PositiveNum, RandProbability, UncertainBits)
-
-    #print (racos.getOptimal().getFeatures())
-    #print (racos.getOptimal().getFitness())
-
-  # mixed optimization
-  if False:
-
-    # dimension setting
-    DimSize = 10
-    regs1 = []
-    regs1.append(-1)
-    regs1.append(1)
-    regs2 = []
-    regs2.append(0)
-    regs2.append(100)
-
-    dim = Dimension()
-    dim.setDimensionSize(DimSize)
-    for i in range(DimSize):
-        if i%2 == 0:
-            dim.setRegion(i, regs1, True)
-        else:
-            dim.setRegion(i, regs2, False)
-
-    racos = RacosOptimization(dim)
-
-    # call online version RACOS
-    #racos.OnlineTurnOn()
-    #racos.MixOpt(MixedFunction, SampleSize, Budget, PositiveNum, RandProbability, UncertainBits)
-
-    ret = racos.MixOpt(MixedFunction, SampleSize, MaxIteration, PositiveNum, RandProbability, UncertainBits)
-
-    #print (racos.getOptimal().getFeatures())
-    #print (racos.getOptimal().getFitness())
 

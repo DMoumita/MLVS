@@ -1,11 +1,12 @@
 import numpy as np
 import re
-from itertools import chain
-
+import math
+import csv
 import onnx
 import onnxruntime as ort
-
 import numpy as np
+import src.custom_property
+from itertools import chain
 
 def predictWithOnnxruntime(modelDef, *inputs):
     'run an onnx model'
@@ -163,24 +164,25 @@ def checkAndSegregateSamplesForMinimization(posSample,negSample, smple,oldPos,ta
             posSample.remove(posSample[0])
             posSample.append(oldPos[0])
 
-
+def validateProposal(inputs,outputs):
+   res = "unknown"
 
 def propCheck(inputs,specs,outputs):
    res = "unknown"
+
    for propMat, propRhs in specs:
-       vec = propMat.dot(outputs)
-       sat = np.all(vec <= propRhs)
+      vec = propMat.dot(outputs)
+      sat = np.all(vec <= propRhs)
 
-       if sat:
-          res = 'violated'
-          break
-
-   if res == 'violated':
-      print("Result: Property violated")
-      print("Counter example found - ")
-      print("Input: ",inputs)
-      print("Outputs: ",outputs)
+   if sat:
+      if src.custom_property.dump_ce == "True": # dump into file
+          ce_vec = []
+          ce_vec.extend(inputs)
+          ce_vec.extend(outputs)
+          filename = "ce.csv"
+          with open(filename,'a') as csvfile:
+             csvwriter = csv.writer(csvfile)
+             csvwriter.writerow(ce_vec)
+          return 0    
       return 1
-
    return 0
-
